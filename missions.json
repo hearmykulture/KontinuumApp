@@ -1,0 +1,122 @@
+[
+  {
+    "id": "mission-1752944229853-9904",
+    "title": "COMMON Task",
+    "rarity": "COMMON",
+    "xpReward": 41,
+    "timesCompleted": 1,
+    "category": "Social",
+    "lastCompletedDate": "2025-07-19",
+    "isAccepted": false,
+    "isCompleted": true,
+    "conditions": []
+  },
+  {
+    "id": "mission-1752944229855-5945",
+    "title": "Do 20 pushups",
+    "rarity": "COMMON",
+    "xpReward": 32,
+    "timesCompleted": 1,
+    "category": "Fitness",
+    "lastCompletedDate": "2025-07-19",
+    "isAccepted": false,
+    "isCompleted": true,
+    "conditions": []
+  },
+  {
+    "id": "mission-1752944229855-5366",
+    "title": "COMMON Task",
+    "rarity": "COMMON",
+    "xpReward": 47,
+    "timesCompleted": 1,
+    "category": "Social",
+    "lastCompletedDate": "2025-07-19",
+    "isAccepted": false,
+    "isCompleted": true,
+    "conditions": []
+  },
+  {
+    "id": "mission-1752944229855-6319",
+    "title": "COMMON Task",
+    "rarity": "COMMON",
+    "xpReward": 50,
+    "timesCompleted": 1,
+    "category": "Health",
+    "lastCompletedDate": "2025-07-19",
+    "isAccepted": false,
+    "isCompleted": true,
+    "conditions": []
+  },
+  {
+    "id": "mission-1752944229855-7527",
+    "title": "Study for 30 minutes",
+    "rarity": "COMMON",
+    "xpReward": 38,
+    "timesCompleted": 1,
+    "category": "Focus",
+    "lastCompletedDate": "2025-07-19",
+    "isAccepted": false,
+    "isCompleted": true,
+    "conditions": []
+  },
+  {
+    "id": "mission-1752944229855-2181",
+    "title": "Do 20 pushups",
+    "rarity": "COMMON",
+    "xpReward": 39,
+    "timesCompleted": 1,
+    "category": "Fitness",
+    "lastCompletedDate": "2025-07-19",
+    "isAccepted": false,
+    "isCompleted": true,
+    "conditions": []
+  },
+  {
+    "id": "mission-1752944229855-2589",
+    "title": "COMMON Task",
+    "rarity": "COMMON",
+    "xpReward": 37,
+    "timesCompleted": 1,
+    "category": "Creative",
+    "lastCompletedDate": "2025-07-19",
+    "isAccepted": false,
+    "isCompleted": true,
+    "conditions": []
+  },
+  {
+    "id": "mission-1752944229855-7193",
+    "title": "UNCOMMON Task",
+    "rarity": "UNCOMMON",
+    "xpReward": 85,
+    "timesCompleted": 1,
+    "category": "Creative",
+    "lastCompletedDate": "2025-07-19",
+    "isAccepted": false,
+    "isCompleted": true,
+    "conditions": []
+  },
+  {
+    "id": "mission-1752944229855-74",
+    "title": "COMMON Task",
+    "rarity": "COMMON",
+    "xpReward": 38,
+    "timesCompleted": 1,
+    "category": "Social",
+    "lastCompletedDate": "2025-07-19",
+    "isAccepted": false,
+    "isCompleted": true,
+    "conditions": []
+  },
+  {
+    "id": "mission-1752944229855-7732",
+    "title": "CHALLENGE Task",
+    "rarity": "CHALLENGE",
+    "xpReward": 676,
+    "timesCompleted": 1,
+    "category": "Health",
+    "lastCompletedDate": "2025-07-19",
+    "isAccepted": false,
+    "isCompleted": true,
+    "conditions": []
+  }
+]
