@@ -1,0 +1,112 @@
+[
+  {
+    "id": "mission-1753112528672-7993",
+    "title": "CHALLENGE Task",
+    "rarity": "CHALLENGE",
+    "xpReward": 757,
+    "timesCompleted": 0,
+    "category": "Creative",
+    "isAccepted": false,
+    "isCompleted": false,
+    "conditions": []
+  },
+  {
+    "id": "mission-1753112528674-2815",
+    "title": "Complete a full workout",
+    "rarity": "RARE",
+    "xpReward": 199,
+    "timesCompleted": 0,
+    "category": "Fitness",
+    "isAccepted": false,
+    "isCompleted": false,
+    "conditions": []
+  },
+  {
+    "id": "mission-1753112528674-5927",
+    "title": "UNCOMMON Task",
+    "rarity": "UNCOMMON",
+    "xpReward": 88,
+    "timesCompleted": 0,
+    "category": "Learning",
+    "isAccepted": false,
+    "isCompleted": false,
+    "conditions": []
+  },
+  {
+    "id": "mission-1753112528674-2433",
+    "title": "COMMON Task",
+    "rarity": "COMMON",
+    "xpReward": 31,
+    "timesCompleted": 0,
+    "category": "Health",
+    "isAccepted": false,
+    "isCompleted": false,
+    "conditions": []
+  },
+  {
+    "id": "mission-1753112528674-5155",
+    "title": "COMMON Task",
+    "rarity": "COMMON",
+    "xpReward": 28,
+    "timesCompleted": 0,
+    "category": "Health",
+    "isAccepted": false,
+    "isCompleted": false,
+    "conditions": []
+  },
+  {
+    "id": "mission-1753112528674-8190",
+    "title": "Do 20 pushups",
+    "rarity": "COMMON",
+    "xpReward": 31,
+    "timesCompleted": 0,
+    "category": "Fitness",
+    "isAccepted": false,
+    "isCompleted": false,
+    "conditions": []
+  },
+  {
+    "id": "mission-1753112528674-859",
+    "title": "COMMON Task",
+    "rarity": "COMMON",
+    "xpReward": 41,
+    "timesCompleted": 0,
+    "category": "Creative",
+    "isAccepted": false,
+    "isCompleted": false,
+    "conditions": []
+  },
+  {
+    "id": "mission-1753112528674-7402",
+    "title": "CHALLENGE Task",
+    "rarity": "CHALLENGE",
+    "xpReward": 945,
+    "timesCompleted": 0,
+    "category": "Learning",
+    "isAccepted": false,
+    "isCompleted": false,
+    "conditions": []
+  },
+  {
+    "id": "mission-1753112528674-2626",
+    "title": "UNCOMMON Task",
+    "rarity": "UNCOMMON",
+    "xpReward": 71,
+    "timesCompleted": 0,
+    "category": "Creative",
+    "isAccepted": false,
+    "isCompleted": false,
+    "conditions": []
+  },
+  {
+    "id": "mission-1753112528674-6830",
+    "title": "Deep focus work 2 hours",
+    "rarity": "RARE",
+    "xpReward": 121,
+    "timesCompleted": 0,
+    "category": "Focus",
+    "isAccepted": false,
+    "isCompleted": false,
+    "conditions": []
+  }
+]
