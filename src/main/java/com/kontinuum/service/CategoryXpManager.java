@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kontinuum.model.ObjectiveCategory;
 import com.kontinuum.model.XpTracker;
+import com.kontinuum.ui.LevelUpPopup;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -13,10 +14,11 @@ public class CategoryXpManager {
     private static final int MAX_XP_PER_CATEGORY = 600_000;
     private static final String XP_DATA_FILE = "xp_data.json";
 
-
-
     private final EnumMap<ObjectiveCategory, XpTracker> categoryXp = new EnumMap<>(ObjectiveCategory.class);
     private final EnumMap<ObjectiveCategory, Integer> categoryLevels = new EnumMap<>(ObjectiveCategory.class);
+
+    // Dependency for completed objectives count
+    private CategoryCompletionManager completionManager;
 
     public CategoryXpManager() {
         for (ObjectiveCategory category : ObjectiveCategory.values()) {
@@ -24,6 +26,11 @@ public class CategoryXpManager {
             categoryLevels.put(category, 1); // Default to level 1
         }
         loadXpData();
+    }
+
+    // Setter for dependency injection
+    public void setCompletionManager(CategoryCompletionManager completionManager) {
+        this.completionManager = completionManager;
     }
 
     public LevelUpInfo addXp(ObjectiveCategory category, int xp) {
@@ -44,6 +51,7 @@ public class CategoryXpManager {
         }
         return null;
     }
+
 
     public void removeXp(ObjectiveCategory category, int xp) {
         XpTracker tracker = categoryXp.get(category);
@@ -151,5 +159,7 @@ public class CategoryXpManager {
             this.newTotalXp = newTotalXp;
             this.xpGained = xpGained;
         }
+
     }
+
 }

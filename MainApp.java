@@ -248,12 +248,14 @@ public class MainApp extends Application {
         for (Objective obj : objectiveManager.getObjectives()) {
             CheckBox checkbox = new CheckBox(obj.getDescription());
             checkbox.setSelected(obj.isCompleted(selectedDate));
+            completionManager.recalculateFromObjectives(objectiveManager.getObjectives(), selectedDate);
+
 
             checkbox.setOnAction(e -> {
                 boolean nowCompleted = checkbox.isSelected();
 
                 if (penaltyService.hasActivePenalties()) {
-                    checkbox.setSelected(false);
+                    checkbox.setSelected(!nowCompleted); // revert checkbox to previous state
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Penalties Active");
                     alert.setHeaderText("Can't complete objectives");
@@ -262,8 +264,18 @@ public class MainApp extends Application {
                     return;
                 }
 
+                // Update completion counts before setting completion status
+                if (nowCompleted) {
+                    completionManager.incrementCompletedCount(obj.getCategory());
+                } else {
+                    int currentCount = completionManager.getCompletedCount(obj.getCategory());
+                    completionManager.setCompletedCount(obj.getCategory(), Math.max(0, currentCount - 1));
+                }
+
+                // Set completion status on the objective
                 obj.setCompleted(selectedDate, nowCompleted);
 
+                // Add or remove XP
                 if (nowCompleted) {
                     xpManager.addXp(obj.getCategory(), obj.getXpReward());
                 } else {
@@ -275,11 +287,8 @@ public class MainApp extends Application {
                 calendarProgressManager.objectiveStateChanged(obj, selectedDate);
             });
 
-            objectivesList.getChildren().add(checkbox);
-        }
-    }
 
-    private void updateXpLabels() {
+            private void updateXpLabels() {
         int totalXp = xpManager.getTotalXp();
 
         totalXpLabel.setText("TOTAL XP: " + totalXp +

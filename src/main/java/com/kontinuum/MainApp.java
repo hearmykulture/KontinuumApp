@@ -4,11 +4,13 @@ import com.kontinuum.model.Objective;
 import com.kontinuum.model.ObjectiveCategory;
 import com.kontinuum.model.Penalty;
 import com.kontinuum.model.PenaltyService;
+import com.kontinuum.service.CategoryCompletionManager;
 import com.kontinuum.service.CategoryXpManager;
 import com.kontinuum.service.MissionManager;
 import com.kontinuum.service.ObjectiveManager;
 import com.kontinuum.service.CalendarProgressManager;
 import com.kontinuum.ui.CalendarTopBar;
+import com.kontinuum.ui.LevelUpPopup;
 import com.kontinuum.ui.MissionBoardScreen;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -22,8 +24,8 @@ import java.time.LocalDate;
 
 public class MainApp extends Application {
 
+    private final CategoryCompletionManager completionManager = new CategoryCompletionManager();
     private final CategoryXpManager xpManager = new CategoryXpManager();
-
     private final PenaltyService penaltyService;
     private final ObjectiveManager objectiveManager;
 
@@ -32,6 +34,9 @@ public class MainApp extends Application {
         penaltyService = new PenaltyService(null); // temp null
         objectiveManager = new ObjectiveManager(penaltyService);
         penaltyService.setObjectiveManager(objectiveManager); // now inject properly
+
+        // Inject completionManager into xpManager (assuming you have this method)
+        xpManager.setCompletionManager(completionManager);
     }
 
     private final VBox objectivesList = new VBox(10);
@@ -51,8 +56,11 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) {
         Objective.setPenaltyService(penaltyService);
+        xpManager.setCompletionManager(completionManager);
 
         objectiveManager.loadObjectives();
+        initializeCompletionManager();
+
 
         // Evaluate penalties for yesterday's incomplete objectives (important)
         penaltyService.evaluateYesterdayPenalties();
@@ -215,15 +223,17 @@ public class MainApp extends Application {
     private void updateObjectives() {
         objectivesList.getChildren().clear();
 
+        completionManager.recalculateFromObjectives(objectiveManager.getObjectives(), selectedDate);
+
         for (Objective obj : objectiveManager.getObjectives()) {
             CheckBox checkbox = new CheckBox(obj.getDescription());
             checkbox.setSelected(obj.isCompleted(selectedDate));
 
             checkbox.setOnAction(e -> {
                 boolean nowCompleted = checkbox.isSelected();
-
                 if (penaltyService.hasActivePenalties()) {
-                    checkbox.setSelected(false);
+                    // Revert checkbox to previous state
+                    checkbox.setSelected(!nowCompleted);
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Penalties Active");
                     alert.setHeaderText("Can't complete objectives");
@@ -232,10 +242,23 @@ public class MainApp extends Application {
                     return;
                 }
 
+                // Update completed counts BEFORE updating objective completion status
+                if (nowCompleted) {
+                    completionManager.incrementCompletedCount(obj.getCategory());
+                } else {
+                    completionManager.setCompletedCount(
+                            obj.getCategory(),
+                            Math.max(0, completionManager.getCompletedCount(obj.getCategory()) - 1)
+                    );
+                }
+
+                // Update completion status of objective
                 obj.setCompleted(selectedDate, nowCompleted);
 
+                CategoryXpManager.LevelUpInfo levelUpInfo = null;
+
                 if (nowCompleted) {
-                    xpManager.addXp(obj.getCategory(), obj.getXpReward());
+                    levelUpInfo = xpManager.addXp(obj.getCategory(), obj.getXpReward());
                 } else {
                     xpManager.removeXp(obj.getCategory(), obj.getXpReward());
                 }
@@ -243,7 +266,20 @@ public class MainApp extends Application {
                 updateXpLabels();
                 objectiveManager.saveObjectives();
                 calendarProgressManager.objectiveStateChanged(obj, selectedDate);
+
+                // Show level up popup if leveled up
+                if (levelUpInfo != null) {
+                    int completedCount = completionManager.getCompletedCount(levelUpInfo.category);
+                    LevelUpPopup popup = new LevelUpPopup(
+                            levelUpInfo.category,
+                            levelUpInfo.newLevel,
+                            levelUpInfo.newTotalXp,
+                            completedCount
+                    );
+                    popup.show();
+                }
             });
+
 
             objectivesList.getChildren().add(checkbox);
         }
@@ -270,5 +306,17 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    private void initializeCompletionManager() {
+        for (ObjectiveCategory category : ObjectiveCategory.values()) {
+            int count = 0;
+            for (Objective obj : objectiveManager.getObjectives()) {
+                if (obj.getCategory() == category && obj.isCompleted(selectedDate)) {
+                    count++;
+                }
+            }
+            completionManager.setCompletedCount(category, count);
+        }
     }
 }
